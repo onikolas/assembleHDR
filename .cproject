@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?fileVersion 4.0.0?>
-
-<cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
 		<cconfiguration id="cdt.managedbuild.config.gnu.exe.debug.358674142">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.exe.debug.358674142" moduleId="org.eclipse.cdt.core.settings" name="Debug">
@@ -26,15 +24,17 @@
 								<option id="gnu.cpp.compiler.exe.debug.option.optimization.level.239675866" name="Optimization Level" superClass="gnu.cpp.compiler.exe.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.exe.debug.option.debugging.level.807148539" name="Debug Level" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.include.paths.1455462363" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/include/OpenEXR"/>
 									<listOptionValue builtIn="false" value="/usr/include/libraw"/>
 								</option>
-								<option id="gnu.cpp.compiler.option.other.other.1335732798" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0  -fopenmp" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.1335732798" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0  -fopenmp -pthread" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1816010101" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.debug.551878781" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.debug">
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.exe.debug.option.optimization.level.1786025310" name="Optimization Level" superClass="gnu.c.compiler.exe.debug.option.optimization.level" valueType="enumerated"/>
 								<option id="gnu.c.compiler.exe.debug.option.debugging.level.607978384" name="Debug Level" superClass="gnu.c.compiler.exe.debug.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.1652685813" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/include/OpenEXR"/>
 									<listOptionValue builtIn="false" value="/usr/include/libraw"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1179932513" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
@@ -42,11 +42,21 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.1050236289" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1816124256" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 								<option id="gnu.cpp.link.option.libs.640986971" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="raw"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="stdc++"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="lcms2"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="IlmImf"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="z"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="Imath"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="Half"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="Iex"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="IlmThread"/>
 									<listOptionValue builtIn="false" value="raw"/>
+									<listOptionValue builtIn="false" value="boost_program_options"/>
 									<listOptionValue builtIn="false" value="lcms2 "/>
 									<listOptionValue builtIn="false" value="stdc++"/>
 								</option>
-								<option id="gnu.cpp.link.option.flags.341330842" superClass="gnu.cpp.link.option.flags" value="-fopenmp" valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.341330842" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-fopenmp" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1944325374" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -62,7 +72,26 @@
 					</sourceEntries>
 				</configuration>
 			</storageModule>
-			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings">
+				<externalSettings containerId="org.eclipse.cdt.managedbuilder.pkgconfig.extSettings" factoryId="org.eclipse.cdt.core.extension.container.factory">
+					<externalSetting contentTypes="org.eclipse.cdt.core.cSource:org.eclipse.cdt.core.cxxSource">
+						<entry flags="BUILTIN" kind="includePath" name="/usr/include/OpenEXR"/>
+						<entry flags="BUILTIN" kind="includePath" name="/usr/include/libraw"/>
+					</externalSetting>
+					<externalSetting contentTypes="org.eclipse.cdt.managedbuilder.core.compiledObjectFile">
+						<entry flags="UNDEFINED" kind="libraryFile" name="IlmImf" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="z" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="Imath" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="Half" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="Iex" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="IlmThread" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="raw" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="stdc++" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="lcms2" srcPrefixMapping="" srcRootPath=""/>
+					</externalSetting>
+				</externalSettings>
+			</storageModule>
+			<storageModule IlmBase="false" ImageMagick="false" ImageMagickplusplus="false" MagickWand="false" Magickplusplus="false" OpenEXR="true" Qt3Support="false" Qt5Bootstrap="false" Qt5Concurrent="false" Qt5Core="false" Qt5DBus="false" Qt5Gui="false" Qt5Network="false" Qt5PlatformSupport="false" Qt5Qml="false" Qt5QmlDevTools="false" Qt5Quick="false" Qt5QuickParticles="false" Qt5QuickTest="false" Qt5Sql="false" Qt5Test="false" Qt5Widgets="false" Qt5Xml="false" QtCore="false" QtDBus="false" QtDeclarative="false" QtDesigner="false" QtDesignerComponents="false" QtHelp="false" QtNetwork="false" QtOpenGL="false" QtScript="false" QtScriptTools="false" QtSql="false" QtTest="false" QtUiTools="false" QtXml="false" bdw-gc="false" cairo="false" cairo-fc="false" cairo-gobject="false" cairo-pdf="false" cairo-ps="false" cairo-xcb="false" cairo-xcb-shm="false" cairo-xlib="false" compizconfig-python="false" compositeproto="false" damageproto="false" dbus-python="false" ddjvuapi="false" dri="false" dri2proto="false" expat="false" fixesproto="false" fontconfig="false" fontutil="false" form="false" gdk-2.0="false" gdk-pixbuf-2.0="false" gdk-pixbuf-xlib-2.0="false" ginn="false" gio-2.0="false" gio-unix-2.0="false" gl="false" glib-2.0="false" glproto="false" gmodule-2.0="false" gmodule-export-2.0="false" gmodule-no-export-2.0="false" gnome-icon-theme-symbolic="false" gnutls="false" gobject-2.0="false" gthread-2.0="false" gtkplus-unix-print-2.0="false" gtkplus-x11-2.0="false" harfbuzz-icu="false" ibus-table="false" ice="false" icu-io="false" icu-le="false" icu-lx="false" inputproto="false" iso-codes="false" kbproto="false" lcms2="false" libavcodec="false" libavformat="false" libavutil="false" libcdt="false" libcgraph="false" libdrm="false" libdrm_nouveau="false" libdrm_radeon="false" libgraph="false" libgvc="false" libgvpr="false" liblzma="false" libpathplan="false" libpcrecpp="false" libpcreposix="false" libpng="false" libpng12="false" libquvi-scripts="false" libraw="false" libraw1394="false" libraw_r="false" libswscale="false" libtasn1="false" libtiff-4="false" libxdot="false" libxml-2.0="false" lqr-1="false" menu="false" menuw="false" mobile-broadband-provider-info="false" moduleId="packages" nautilus-sendto="false" ncurses="false" ncursesplusplus="false" ncursesplusplusw="false" notify-python="false" opencv="false" p11-kit-1="false" panelw="false" pango="false" pangocairo="false" pangoft2="false" pixman-1="false" pthread-stubs="false" pygtksourceview-2.0="false" python="false" python-2.7="false" python2="false" randrproto="false" renderproto="false" tinfo="false" x11="false" x11-xcb="false" xau="false" xbitmaps="false" xcb="false" xcb-dri2="false" xcb-shm="false" xcomposite="false" xcursor="false" xdamage="false" xdmcp="false" xext="false" xextproto="false" xi="false" xinerama="false" xorg-wacom="false" xproto="false" xrandr="false" xrender="false" xt="false" xxf86vm="false" yelp-xsl="false" zlib="false"/>
 		</cconfiguration>
 		<cconfiguration id="cdt.managedbuild.config.gnu.exe.release.1546390023">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.exe.release.1546390023" moduleId="org.eclipse.cdt.core.settings" name="Release">
@@ -86,15 +115,45 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.release.1436930891" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.release">
 								<option id="gnu.cpp.compiler.exe.release.option.optimization.level.445609507" name="Optimization Level" superClass="gnu.cpp.compiler.exe.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.exe.release.option.debugging.level.128999896" name="Debug Level" superClass="gnu.cpp.compiler.exe.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.option.other.other.2065743792" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -pthread" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.include.paths.1512604734" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/include/OpenEXR"/>
+									<listOptionValue builtIn="false" value="/usr/include/libraw"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.276706100" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.release.902381395" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.release">
 								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.exe.release.option.optimization.level.799111911" name="Optimization Level" superClass="gnu.c.compiler.exe.release.option.optimization.level" valueType="enumerated"/>
 								<option id="gnu.c.compiler.exe.release.option.debugging.level.125132009" name="Debug Level" superClass="gnu.c.compiler.exe.release.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
+								<option id="gnu.c.compiler.option.include.paths.1231061607" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/include/OpenEXR"/>
+									<listOptionValue builtIn="false" value="/usr/include/libraw"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1551726033" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.release.1425114458" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.release"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.release.12004921" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.release">
+								<option id="gnu.cpp.link.option.libs.1085389975" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" value="IlmImf"/>
+									<listOptionValue builtIn="false" value="boost_program_options"/>
+									<listOptionValue builtIn="false" value="z"/>
+									<listOptionValue builtIn="false" value="Imath"/>
+									<listOptionValue builtIn="false" value="Half"/>
+									<listOptionValue builtIn="false" value="Iex"/>
+									<listOptionValue builtIn="false" value="IlmThread"/>
+									<listOptionValue builtIn="false" value="raw"/>
+									<listOptionValue builtIn="false" value="stdc++"/>
+									<listOptionValue builtIn="false" value="lcms2"/>
+									<listOptionValue builtIn="false" value="IlmImf"/>
+									<listOptionValue builtIn="false" value="z"/>
+									<listOptionValue builtIn="false" value="Imath"/>
+									<listOptionValue builtIn="false" value="Half"/>
+									<listOptionValue builtIn="false" value="Iex"/>
+									<listOptionValue builtIn="false" value="IlmThread"/>
+									<listOptionValue builtIn="false" value="raw"/>
+									<listOptionValue builtIn="false" value="stdc++"/>
+									<listOptionValue builtIn="false" value="lcms2"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.208906222" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -110,7 +169,26 @@
 					</sourceEntries>
 				</configuration>
 			</storageModule>
-			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings">
+				<externalSettings containerId="org.eclipse.cdt.managedbuilder.pkgconfig.extSettings" factoryId="org.eclipse.cdt.core.extension.container.factory">
+					<externalSetting contentTypes="org.eclipse.cdt.core.cSource:org.eclipse.cdt.core.cxxSource">
+						<entry flags="BUILTIN" kind="includePath" name="/usr/include/OpenEXR"/>
+						<entry flags="BUILTIN" kind="includePath" name="/usr/include/libraw"/>
+					</externalSetting>
+					<externalSetting contentTypes="org.eclipse.cdt.managedbuilder.core.compiledObjectFile">
+						<entry flags="UNDEFINED" kind="libraryFile" name="IlmImf" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="z" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="Imath" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="Half" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="Iex" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="IlmThread" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="raw" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="stdc++" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="lcms2" srcPrefixMapping="" srcRootPath=""/>
+					</externalSetting>
+				</externalSettings>
+			</storageModule>
+			<storageModule IlmBase="false" ImageMagick="false" ImageMagickplusplus="false" MagickWand="false" Magickplusplus="false" OpenEXR="true" Qt3Support="false" Qt5Bootstrap="false" Qt5Concurrent="false" Qt5Core="false" Qt5DBus="false" Qt5Gui="false" Qt5Network="false" Qt5PlatformSupport="false" Qt5Qml="false" Qt5QmlDevTools="false" Qt5Quick="false" Qt5QuickParticles="false" Qt5QuickTest="false" Qt5Sql="false" Qt5Test="false" Qt5Widgets="false" Qt5Xml="false" QtCore="false" QtDBus="false" QtDeclarative="false" QtDesigner="false" QtDesignerComponents="false" QtHelp="false" QtNetwork="false" QtOpenGL="false" QtScript="false" QtScriptTools="false" QtSql="false" QtTest="false" QtUiTools="false" QtXml="false" bdw-gc="false" cairo="false" cairo-fc="false" cairo-gobject="false" cairo-pdf="false" cairo-ps="false" cairo-xcb="false" cairo-xcb-shm="false" cairo-xlib="false" compizconfig-python="false" compositeproto="false" damageproto="false" dbus-python="false" ddjvuapi="false" dri="false" dri2proto="false" expat="false" fixesproto="false" fontconfig="false" fontutil="false" form="false" gdk-2.0="false" gdk-pixbuf-2.0="false" gdk-pixbuf-xlib-2.0="false" ginn="false" gio-2.0="false" gio-unix-2.0="false" gl="false" glib-2.0="false" glproto="false" gmodule-2.0="false" gmodule-export-2.0="false" gmodule-no-export-2.0="false" gnome-icon-theme-symbolic="false" gnutls="false" gobject-2.0="false" gthread-2.0="false" gtkplus-unix-print-2.0="false" gtkplus-x11-2.0="false" harfbuzz-icu="false" ibus-table="false" ice="false" icu-io="false" icu-le="false" icu-lx="false" inputproto="false" iso-codes="false" kbproto="false" lcms2="false" libavcodec="false" libavformat="false" libavutil="false" libcdt="false" libcgraph="false" libdrm="false" libdrm_nouveau="false" libdrm_radeon="false" libgraph="false" libgvpr="false" liblzma="false" libpathplan="false" libpcrecpp="false" libpcreposix="false" libpng="false" libpng12="false" libquvi-scripts="false" libraw="true" libraw1394="false" libraw_r="false" libswscale="false" libtasn1="false" libtiff-4="false" libxdot="false" libxml-2.0="false" lqr-1="false" menu="false" menuw="false" mobile-broadband-provider-info="false" moduleId="packages" nautilus-sendto="false" ncurses="false" ncursesplusplus="false" ncursesplusplusw="false" notify-python="false" opencv="false" p11-kit-1="false" panelw="false" pango="false" pangocairo="false" pangoft2="false" pixman-1="false" pthread-stubs="false" pygtksourceview-2.0="false" python="false" python-2.7="false" python2="false" randrproto="false" renderproto="false" tinfo="false" valgrind="false" x11="false" x11-xcb="false" xau="false" xbitmaps="false" xcb="false" xcb-dri2="false" xcb-shm="false" xcomposite="false" xcursor="false" xdamage="false" xdmcp="false" xext="false" xextproto="false" xi="false" xinerama="false" xorg-wacom="false" xproto="false" xrandr="false" xrender="false" xt="false" xxf86vm="false" yelp-xsl="false" zlib="false"/>
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -131,8 +209,15 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="refreshScope" versionNumber="1">
-		<resource resourceType="PROJECT" workspacePath="/assembleHDR"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/assembleHDR"/>
+		</configuration>
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/assembleHDR"/>
+		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>

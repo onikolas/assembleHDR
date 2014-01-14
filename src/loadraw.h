@@ -10,7 +10,7 @@
 
 typedef unsigned short ushort;
 
-ushort *loadraw(const char *filename, int *w, int *h);
+ushort *loadraw(const char *filename, int *w, int *h, float *av, float *tv);
 
 
 #endif /* LOADRAW_H_ */

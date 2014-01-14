@@ -5,43 +5,39 @@
  *      Author: nikolas
  */
 
-
+#include <algorithm>
 #include <libraw/libraw.h>
-
 #include "loadraw.h"
 
-ushort *loadraw(const char *filename, int *w, int *h)
+ushort *loadraw(const char *filename, int *w, int *h, float *av, float *tv)
 {
-	LibRaw rawwwr;
-	rawwwr.open_file(filename);
+	LibRaw r;
+	r.open_file(filename);
 
-	*w = rawwwr.imgdata.sizes.iwidth;
-	*h = rawwwr.imgdata.sizes.iheight;
+	int fullw = r.imgdata.rawdata.sizes.raw_width;
+	int fullh = r.imgdata.rawdata.sizes.raw_height;
+	*h = r.imgdata.rawdata.sizes.height;
+	*w = r.imgdata.rawdata.sizes.width;
+	int lmargin = r.imgdata.rawdata.sizes.left_margin;
+	int tmargin = r.imgdata.rawdata.sizes.top_margin;
 
-	rawwwr.unpack();
+	*av = r.imgdata.other.aperture;
+	*tv = r.imgdata.other.shutter;
 
+	r.unpack();
 
-	/* This creates a bitmap of the raw data (8-bit)
-	raw.dcraw_process();
-	libraw_processed_image_t* img = raw.dcraw_make_mem_image();
-	for(int i=0; i<img->height * img->width * img->colors; i++)
-	{
-		ret[i] = img->data[i];
-	}*/
+	unsigned int size = r.imgdata.rawdata.sizes.width * r.imgdata.rawdata.sizes.height;
+	ushort *ret = new ushort[size];
 
-	rawwwr.raw2image();
-	ushort  *ret = new ushort[(*w) * (*h) * 4];
+	for(int i=tmargin; i<fullh; i++)
+		for(int j=lmargin; j<fullw; j++)
+		{
+			unsigned int raw_ndx = i*fullw+j;
+			unsigned int new_ndx = (i-tmargin)*(*w)+(j-lmargin);
+			ret[new_ndx] = r.imgdata.rawdata.raw_image[raw_ndx];
+		}
 
-	for(int i = 0; i < rawwwr.imgdata.sizes.iwidth * rawwwr.imgdata.sizes.iheight; i++)
-	{
-		ret[i*4+0] = rawwwr.imgdata.image[i][0];
-		ret[i*4+1] = rawwwr.imgdata.image[i][1];
-		ret[i*4+2] = rawwwr.imgdata.image[i][2];
-		ret[i*4+3] = rawwwr.imgdata.image[i][3];
-	}
-
-	//LibRaw::dcraw_clear_mem(img);
-	rawwwr.recycle();
+	r.recycle();
 	return ret;
 }
 
