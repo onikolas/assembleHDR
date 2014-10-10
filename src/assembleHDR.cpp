@@ -4,13 +4,16 @@
 #include <string>
 #include <vector>
 #include <boost/program_options.hpp>
-
+#include <boost/tokenizer.hpp>
 
 using namespace std;
 
 #include "loadraw.h"
 #include "rgbe.h"
 #include "exr.h"
+
+typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
+
 
 //min and max depend on the camera
 void pixweight(ushort pix, float *w, float *val, unsigned int min, unsigned int max, float cutoff)
@@ -24,41 +27,50 @@ void pixweight(ushort pix, float *w, float *val, unsigned int min, unsigned int 
 }
 
 
-//4x4 silly filter
-fRGB * demosaic(float *img, int w, int h, fRGB matrix, bool scale)
+//interpolating nearest same colors
+fRGB * demosaic(float *img, int w, int h, fRGB matrix)
 {
 	fRGB *ret;
-	if(scale)
-		ret = new fRGB[w*h/4];
-	else
-		ret = new fRGB[w*h];
-
-
+	ret = new fRGB[w*h];
 
 	for(int a=0; a<h; a+=2)
 	{
 		for(int c=0; c<w; c+=2)
 		{
 			int i = a*w+c;
+			int r=i;
+			int g=i+1;
+			int g2=(i+w)%(w*h);
+			int b=(i+w+1)%(w*h);
 
-			int r = i;
-			int g = i+1;
-			int g2 = (i+w)%(w*h);
-			int b = (i+w+1)%(w*h);
 
-			float red = img[r]*matrix.r;
-			float green = (img[g] + img[g2])*matrix.g/2;
-			float blue = img[b]*matrix.b;
-
-			if(scale)
+			if(a>0 && c>0 && a<(h-2) && c<(h-2))
 			{
-				int ii = (a/2)*(w/2)+(c/2);
-				ret[ii].r = red;
-				ret[ii].g = green;
-				ret[ii].b = blue;
+				ret[r].r = img[i];
+				ret[r].g = (img[i-1] + img[i+1] + img[i-w] + img[i+w])/4;
+				ret[r].b = (img[i-w-1] + img[i-w+1] +img[i+w-1] + img[i+w+1])/4;
+				ret[r] *= matrix;
+
+				ret[g].r = (img[g-1] + img[g+1])/2;
+				ret[g].g = img[g];
+				ret[g].b = (img[g-w] + img[g+w])/2;
+				ret[g] *= matrix;
+
+				ret[g2].r = (img[g2-w] + img[g2+w])/2;
+				ret[g2].g = img[g2];
+				ret[g2].b = (img[g2-1] + img[g2+1])/2;
+				ret[g2] *= matrix;
+
+				ret[b].r = (img[b-w-1] + img[b-w+1] +img[b+w-1] + img[b+w+1])/4;
+				ret[b].g = (img[b-1] + img[b+1] + img[b-w] + img[b+w])/4;
+				ret[b].b = img[b];
+				ret[b] *= matrix;
 			}
 			else
 			{
+				float red = img[r]*matrix.r;
+				float green = (img[g] + img[g2])*matrix.g/2;
+				float blue = img[b]*matrix.b;
 				ret[i].r =  ret[g].r = ret[g2].r = ret[b].r = red;
 				ret[i].g =  ret[g].g = ret[g2].g = ret[b].g = green;
 				ret[i].b =  ret[g].b = ret[g2].b = ret[b].b = blue;
@@ -85,7 +97,7 @@ int main(int argc, char **argv)
 			("black,b",    po::value<int>()->default_value(2040),         "black level")
 			("white,w",    po::value<int>()->default_value(13586),        "white level")
 			("cutoff,c",   po::value<float>()->default_value(0),          "ignore suaturated values (enter %)")
-			("scale,s", 												  "scale to 25%")
+			("wb",         po::value<string>()->default_value("1,1,1"),   "white balance multiplier (enter r,g,b)")
 		;
 		po::positional_options_description p;
 		p.add("inputs", -1);
@@ -179,22 +191,20 @@ int main(int argc, char **argv)
 	fclose(fp);
 	*/
 
-	cout << "Demosaic ";
-	bool scale=false;
+	cout << "Demosaic " <<endl;
 	int outw = w;
 	int outh = h;
-	if(vm.count("scale"))
-	{
-		cout << "and scaling to 25% of original\n";
-		outh=h/2;
-		outw=w/2;
-		scale = true;
-	}
-	else
-		cout << "\n";
 
 	//demosaicing of imaResult into tmpexr
-	fRGB *tmpexr = demosaic(imaResult,w,h,fRGB(1,1,1),scale);
+	boost::char_separator<char> sep(",");
+	tokenizer tokens(vm["wb"].as<string>(), sep);
+	tokenizer::iterator tok_iter = tokens.begin();
+	fRGB mat;
+	mat.r = boost::lexical_cast<float>(*tok_iter); ++tok_iter;
+	mat.g = boost::lexical_cast<float>(*tok_iter); ++tok_iter;
+	mat.b = boost::lexical_cast<float>(*tok_iter); ++tok_iter;
+	cout << "Using white balance " << mat.r << " " << mat.g << " " << mat.b << endl;
+	fRGB *tmpexr = demosaic(imaResult,w,h, mat);
 
 	Exr outfile;
 	outfile.FromArray(tmpexr,outw,outh);

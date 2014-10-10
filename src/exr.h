@@ -8,6 +8,13 @@ struct fRGB
 {
 	fRGB() {r=0;g=0;b=0;}
 	fRGB(float i,float j,float k) {r=i;g=j;b=k;}
+
+	fRGB operator*=(const fRGB a)
+	{
+		r *= a.r; g *= a.g; b *= a.b;
+		return *this;
+	}
+
 	float r,g,b;
 };
 
