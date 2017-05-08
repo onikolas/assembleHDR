@@ -81,6 +81,20 @@ fRGB * demosaic(float *img, int w, int h, fRGB matrix)
 	return ret;
 }
 
+fRGB * demosaicS(float *img, int w, int h, fRGB matrix)
+{
+	fRGB *ret;
+	ret = new fRGB[w*h];
+
+	for(int i = 0; i < w*h; ++i)
+	{
+		ret[i].r = img[i*3];
+		ret[i].g = img[i*3+1];
+		ret[i].b = img[i*3+2];
+	}
+	return ret;
+}
+
 namespace po = boost::program_options;
 
 int main(int argc, char **argv)
@@ -98,6 +112,7 @@ int main(int argc, char **argv)
 			("white,w",    po::value<int>()->default_value(13586),        "white level")
 			("cutoff,c",   po::value<float>()->default_value(0),          "ignore suaturated values (enter %)")
 			("wb",         po::value<string>()->default_value("1,1,1"),   "white balance multiplier (enter r,g,b)")
+			("mark",                                                      "mark bad pixels as negative" )
 		;
 		po::positional_options_description p;
 		p.add("inputs", -1);
@@ -134,7 +149,7 @@ int main(int argc, char **argv)
 	for(int i=0; i<c; i++)
 	{
 		float av,tv;
-		LDRs[i] = loadraw(files[i].c_str(), &w, &h, &av, &tv);
+		LDRs[i] = loadsraw(files[i].c_str(), &w, &h, &av, &tv);
 		Avs[i] = av; Tvs[i] = tv;
 		//TODO test w,h differences
 		cout << "Loaded "<< files[i].c_str() << " Av:" << Avs[i] << " Tv:" << Tvs[i] <<endl;
@@ -146,9 +161,9 @@ int main(int argc, char **argv)
 
 	float tmpresult;
 	float sumweights;
-	float *imaResult = new float[w*h]; //HDR image before demosaic and cropping
+	float *imaResult = new float[w*h*3]; //HDR image before demosaic and cropping
 
-	for(int i=0; i<w*h; i++)
+	for(int i=0; i<w*h*3; i++) //TODO *3 is only for SRAW
 	{
 		tmpresult=0; sumweights=0;
 
@@ -167,7 +182,10 @@ int main(int argc, char **argv)
 			sumweights += weight;
 		}
 
-		imaResult[i] = (sumweights>0)?(tmpresult / sumweights):0;
+		float badval = 0;
+		if(vm.count("mark"))
+			badval = -1000000;
+		imaResult[i] = (sumweights>0)?(tmpresult / sumweights): badval;
 
 	}
 
@@ -204,7 +222,7 @@ int main(int argc, char **argv)
 	mat.g = boost::lexical_cast<float>(*tok_iter); ++tok_iter;
 	mat.b = boost::lexical_cast<float>(*tok_iter); ++tok_iter;
 	cout << "Using white balance " << mat.r << " " << mat.g << " " << mat.b << endl;
-	fRGB *tmpexr = demosaic(imaResult,w,h, mat);
+	fRGB *tmpexr = demosaicS(imaResult,w,h, mat);
 
 	Exr outfile;
 	outfile.FromArray(tmpexr,outw,outh);
